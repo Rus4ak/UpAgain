@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -10,19 +11,24 @@ public class PlayerMovement : MonoBehaviour
     private Animator _animator;
     private Rigidbody _rigidbody;
     private bool _isOnGround;
-    private Vector3 _startedPosition;
+    private Vector3 _lastPosition;
+    private float _currentSpeed;
 
     private void Awake()
     {
         _animator = GetComponent<Animator>();
         _rigidbody = GetComponent<Rigidbody>();
-        _startedPosition = transform.position;
+    }
+
+    private void Start()
+    {
+        _lastPosition = _rigidbody.position;
     }
 
     private void Update()
     {
         if (transform.position.y < 0)
-            transform.position = _startedPosition;
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     private void FixedUpdate()
@@ -30,9 +36,12 @@ public class PlayerMovement : MonoBehaviour
         _isOnGround = Physics.CheckSphere(transform.position, _groundCheckRadius, _groundCheckLayer);
 
         _animator.SetBool("IsFalling", !_isOnGround);
-        _animator.SetFloat("Speed", _rigidbody.linearVelocity.magnitude);
+        _animator.SetFloat("Speed", _currentSpeed);
 
         Move();
+
+        _currentSpeed = (_rigidbody.position - _lastPosition).magnitude / Time.fixedDeltaTime;
+        _lastPosition = _rigidbody.position;
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -43,7 +52,7 @@ public class PlayerMovement : MonoBehaviour
             hitDirection.y = 0;
             hitDirection.Normalize();
 
-            _rigidbody.AddForce(hitDirection * 100, ForceMode.Impulse);
+            _rigidbody.AddForce(hitDirection * 10, ForceMode.Impulse);
         }
     }
 
@@ -53,11 +62,8 @@ public class PlayerMovement : MonoBehaviour
             return;
 
         Vector3 movement = new Vector3(-_joystick.Horizontal / 2, 0, -_joystick.Vertical);
-        
-        if (Mathf.Abs(_rigidbody.linearVelocity.magnitude) > 4)
-            return;
 
-        _rigidbody.linearVelocity = movement * _speed;
+        _rigidbody.MovePosition(_rigidbody.position + movement * _speed * Time.fixedDeltaTime);
 
         if (movement != Vector3.zero) 
             transform.rotation = Quaternion.LookRotation(movement);
