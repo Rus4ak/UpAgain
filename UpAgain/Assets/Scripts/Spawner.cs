@@ -6,7 +6,7 @@ public class Spawner : MonoBehaviour
 {
     [SerializeField] private List<GameObject> _obstacles;
 
-    private float _spawnSpeed = 5f;
+    private float _spawnSpeed = 3f;
     private Bounds _colliderBounds;
     private Transform _player;
 

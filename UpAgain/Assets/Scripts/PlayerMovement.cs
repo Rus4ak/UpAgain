@@ -52,7 +52,7 @@ public class PlayerMovement : MonoBehaviour
             hitDirection.y = 0;
             hitDirection.Normalize();
 
-            _rigidbody.AddForce(hitDirection * 10, ForceMode.Impulse);
+            _rigidbody.AddForce(hitDirection * 15, ForceMode.Impulse);
         }
     }
 

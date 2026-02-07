@@ -3,8 +3,8 @@ using UnityEngine;
 
 public class Stone : MonoBehaviour
 {
-    private float _minSpeed = 5f;
-    private float _maxSpeed = 20f;
+    private float _minSpeed = 10f;
+    private float _maxSpeed = 25f;
 
     private float _speed;
     private Rigidbody _rigidbody;
