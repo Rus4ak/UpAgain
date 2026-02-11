@@ -1,0 +1,1 @@
+C:\projects\Unity\UpAgain\UpAgain\Library\Bee\Android\Prj\IL2CPP\Gradle\unityLibrary\build\intermediates\cxx\RelWithDebInfo\aka331x5\obj\arm64-v8a
