@@ -15,6 +15,20 @@ public class Spawner : MonoBehaviour
         _player = GameObject.FindWithTag("Player").transform;
         _colliderBounds = GetComponent<Collider>().bounds;
 
+        for (int i = 0; i < GameManager.Instance.CurrentLevel; i++)
+        {
+            if (_spawnSpeed > 2)
+                _spawnSpeed -= .1f;
+            else if (_spawnSpeed > 1.5f)
+                _spawnSpeed -= .05f;
+            else if (_spawnSpeed > 1)
+                _spawnSpeed -= .02f;
+            else if (_spawnSpeed > .5f)
+                _spawnSpeed -= .005f;
+            else
+                break;
+        }
+
         StartCoroutine(Spawn());
     }
 
