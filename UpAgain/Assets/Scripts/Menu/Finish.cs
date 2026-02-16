@@ -25,6 +25,8 @@ public class Finish : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            GameManager.Instance.playerMovement.SetMove(false);
+
             PlayerPrefs.SetInt("LastCompletedLevel", _currentLevel);
 
             Vector3 cameraLookAt = _chest.position;
@@ -42,6 +44,7 @@ public class Finish : MonoBehaviour
         int rewardCoins = Random.Range(_currentLevel, _currentLevel + 100);
         
         _rewardText.text = $"+{rewardCoins}";
+        Canvas.ForceUpdateCanvases();
         
         Bank.Coins += rewardCoins;
         PlayerPrefs.SetInt("Coins", Bank.Coins);

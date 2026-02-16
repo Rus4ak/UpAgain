@@ -5,6 +5,7 @@ public class GameManager : MonoBehaviour
     private int _currentLevel;
 
     public int CurrentLevel {  get { return _currentLevel; } }
+    public PlayerMovement playerMovement;
 
     public static GameManager Instance;
 

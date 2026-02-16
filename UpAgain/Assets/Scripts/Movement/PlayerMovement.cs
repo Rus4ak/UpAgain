@@ -13,11 +13,14 @@ public class PlayerMovement : MonoBehaviour
     private bool _isOnGround;
     private Vector3 _lastPosition;
     private float _currentSpeed;
+    private bool _isMove = true;
 
     private void Awake()
     {
         _animator = GetComponent<Animator>();
         _rigidbody = GetComponent<Rigidbody>();
+
+        GameManager.Instance.playerMovement = this;
     }
 
     private void Start()
@@ -38,7 +41,8 @@ public class PlayerMovement : MonoBehaviour
         _animator.SetBool("IsFalling", !_isOnGround);
         _animator.SetFloat("Speed", _currentSpeed);
 
-        Move();
+        if (_isMove)
+            Move();
 
         _currentSpeed = (_rigidbody.position - _lastPosition).magnitude / Time.fixedDeltaTime;
         _lastPosition = _rigidbody.position;
@@ -67,6 +71,12 @@ public class PlayerMovement : MonoBehaviour
 
         if (movement != Vector3.zero) 
             transform.rotation = Quaternion.LookRotation(movement);
+    }
+
+    public void SetMove(bool isMove)
+    {
+        _isMove = isMove;
+        _joystick.gameObject.SetActive(isMove);
     }
 
     private void OnDrawGizmos()
