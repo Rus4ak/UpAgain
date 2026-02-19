@@ -10,7 +10,7 @@ public class MainMenu : MonoBehaviour
     {
         _level.text = $"{PlayerPrefs.GetInt("LastCompletedLevel", 0) + 1} LEVEL";
 
-        Bank.Coins = PlayerPrefs.GetInt("Coins", 0);
+        DataLoader.Instance.Load();
     }
 
     public void StartGame()

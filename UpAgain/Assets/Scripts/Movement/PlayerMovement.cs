@@ -37,15 +37,12 @@ public class PlayerMovement : MonoBehaviour
     private void FixedUpdate()
     {
         _isOnGround = Physics.CheckSphere(transform.position, _groundCheckRadius, _groundCheckLayer);
-
+        
         _animator.SetBool("IsFalling", !_isOnGround);
         _animator.SetFloat("Speed", _currentSpeed);
 
         if (_isMove)
             Move();
-
-        _currentSpeed = (_rigidbody.position - _lastPosition).magnitude / Time.fixedDeltaTime;
-        _lastPosition = _rigidbody.position;
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -63,7 +60,17 @@ public class PlayerMovement : MonoBehaviour
     private void Move()
     {
         if (Input.touchCount == 0 || !_isOnGround)
+        {
+            _currentSpeed = 0;
+            _lastPosition = _rigidbody.position;
             return;
+        }
+
+        _currentSpeed = (_rigidbody.position - _lastPosition).magnitude / Time.fixedDeltaTime;
+        _lastPosition = _rigidbody.position;
+
+        if (_currentSpeed < 1)
+            _currentSpeed = 1;
 
         Vector3 movement = new Vector3(-_joystick.Horizontal / 2, 0, -_joystick.Vertical);
 
