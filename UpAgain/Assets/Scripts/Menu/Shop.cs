@@ -8,10 +8,6 @@ public class Shop : MonoBehaviour
     private void Start()
     {
         int coins = PlayerPrefs.GetInt("Coins", 0);
-
-        if (coins > 100000)
-            _coinsText.text = "99999+";
-        else
-            _coinsText.text = coins.ToString();
+        _coinsText.text = coins.ToString();
     }
 }

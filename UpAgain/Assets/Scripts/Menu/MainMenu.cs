@@ -9,8 +9,6 @@ public class MainMenu : MonoBehaviour
     private void Start()
     {
         _level.text = $"{PlayerPrefs.GetInt("LastCompletedLevel", 0) + 1} LEVEL";
-
-        DataLoader.Instance.Load();
     }
 
     public void StartGame()
