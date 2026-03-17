@@ -17,10 +17,7 @@ public class SoundInitialization : MonoBehaviour
     private void Awake()
     {
         _audioSource = GetComponent<AudioSource>();
-    }
 
-    private void Start()
-    {
         _baseVolume = _audioSource.volume;
         Initialize();
     }

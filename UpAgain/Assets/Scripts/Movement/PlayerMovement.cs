@@ -13,12 +13,15 @@ public class PlayerMovement : MonoBehaviour
     private bool _isOnGround;
     private Vector3 _lastPosition;
     private float _currentSpeed;
+    private PlayerSounds _playerSounds;
+
     private bool _isMove = true;
 
     private void Awake()
     {
         _animator = GetComponent<Animator>();
         _rigidbody = GetComponent<Rigidbody>();
+        _playerSounds = GetComponent<PlayerSounds>();
 
         GameManager.Instance.playerMovement = this;
     }
@@ -32,6 +35,10 @@ public class PlayerMovement : MonoBehaviour
     {
         if (transform.position.y < 0)
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+
+        float t = Mathf.InverseLerp(10f, 20f, _rigidbody.linearVelocity.magnitude);
+
+        _playerSounds.PlayWind(t);
     }
 
     private void FixedUpdate()
@@ -54,6 +61,8 @@ public class PlayerMovement : MonoBehaviour
             hitDirection.Normalize();
 
             _rigidbody.AddForce(hitDirection * 15, ForceMode.Impulse);
+
+            _playerSounds.PlayHit();
         }
     }
 
@@ -69,8 +78,12 @@ public class PlayerMovement : MonoBehaviour
         _currentSpeed = (_rigidbody.position - _lastPosition).magnitude / Time.fixedDeltaTime;
         _lastPosition = _rigidbody.position;
 
-        if (_currentSpeed < 1)
+        if (_currentSpeed < .1f)
+            _currentSpeed = 0;
+        else if (_currentSpeed < 1)
             _currentSpeed = 1;
+        else if (_currentSpeed > 3)
+            _currentSpeed = 3;
 
         Vector3 movement = new Vector3(-_joystick.Horizontal / 2, 0, -_joystick.Vertical);
 
