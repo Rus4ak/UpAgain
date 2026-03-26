@@ -9,6 +9,7 @@ public class Finish : MonoBehaviour
     [SerializeField] private Vector3 _cameraOffset;
     [SerializeField] private float _activateFinishMenuTime;
     [SerializeField] private TMP_Text _rewardText;
+    [SerializeField] private AudioSource _rewardSound;
 
     private Animator _chestAnimator;
     private CameraMovement _mainCamera;
@@ -50,10 +51,12 @@ public class Finish : MonoBehaviour
         PlayerPrefs.SetInt("Coins", Bank.Coins);
 
         _finishMenu.SetActive(true);
+        _rewardSound.Play();
     }
 
     public void LoadScene(string name)
     {
         SceneManager.LoadScene(name);
+        Destroy(Music.Instance.gameObject);
     }
 }

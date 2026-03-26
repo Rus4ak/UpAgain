@@ -14,5 +14,6 @@ public class Pause : MonoBehaviour
     {
         SetTimeScale(1);
         SceneManager.LoadScene("MainMenu");
+        Destroy(Music.Instance.gameObject);
     }
 }

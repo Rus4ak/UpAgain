@@ -50,6 +50,9 @@ public class PlayerMovement : MonoBehaviour
 
         if (_isMove)
             Move();
+
+        else if (_currentSpeed > 0)
+            _currentSpeed = 0;
     }
 
     private void OnCollisionEnter(Collision collision)
