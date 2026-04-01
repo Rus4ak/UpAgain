@@ -6,6 +6,7 @@ public class Stone : MonoBehaviour
 {
     [SerializeField] private float _minSpeed = 10f;
     [SerializeField] private float _maxSpeed = 25f;
+    [SerializeField] private GameObject _hitParticles;
 
     private float _speed;
     private Rigidbody _rigidbody;
@@ -35,6 +36,23 @@ public class Stone : MonoBehaviour
     {
         if (transform.position.y < 0)
             Destroy(gameObject);
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (!SettingsValues.Instance.VFX)
+            return;
+
+        if (collision.gameObject.CompareTag("Player"))
+            return;
+
+        foreach (ContactPoint contact in collision.contacts)
+        {
+            Vector3 hitPoint = contact.point;
+            Vector3 hitNormal = contact.normal;
+
+            Instantiate(_hitParticles, hitPoint, Quaternion.LookRotation(hitNormal));
+        }
     }
 
     private void OnCollisionStay(Collision collision)

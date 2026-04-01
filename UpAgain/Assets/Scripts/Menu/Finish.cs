@@ -42,7 +42,7 @@ public class Finish : MonoBehaviour
 
     private void ActiveFinishMenu()
     {
-        int rewardCoins = Random.Range(_currentLevel, _currentLevel + 100);
+        int rewardCoins = Random.Range(_currentLevel, _currentLevel + 50);
         
         _rewardText.text = $"+{rewardCoins}";
         Canvas.ForceUpdateCanvases();

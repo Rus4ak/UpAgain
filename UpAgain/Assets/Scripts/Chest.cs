@@ -2,10 +2,16 @@ using UnityEngine;
 
 public class Chest : MonoBehaviour
 {
-    [SerializeField] private ParticleSystem _particleSystem;
+    [SerializeField] private ParticleSystem _coinsParticle;
+    [SerializeField] private ParticleSystem _jumpParticle;
 
-    public void StartParticle()
+    public void StartParticleCoins()
     {
-        _particleSystem.Play();
+        _coinsParticle.Play();
+    }
+
+    public void StartParticleJump()
+    {
+        _jumpParticle.Play();
     }
 }

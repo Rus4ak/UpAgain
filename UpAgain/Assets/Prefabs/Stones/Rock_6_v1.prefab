@@ -132,6 +132,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _minSpeed: 10
   _maxSpeed: 25
+  _hitParticles: {fileID: 7948516606963018104, guid: aaff9bb5ddae38e479d257ebd2a19f8b, type: 3}
 --- !u!135 &1897198795320315345
 SphereCollider:
   m_ObjectHideFlags: 0

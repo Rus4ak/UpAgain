@@ -7,6 +7,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private FloatingJoystick _joystick;
     [SerializeField] private float _groundCheckRadius;
     [SerializeField] private LayerMask _groundCheckLayer;
+    [SerializeField] private GameObject _stepParticle;
 
     private Animator _animator;
     private Rigidbody _rigidbody;
@@ -100,6 +101,14 @@ public class PlayerMovement : MonoBehaviour
     {
         _isMove = isMove;
         _joystick.gameObject.SetActive(isMove);
+    }
+
+    public void Step()
+    {
+        if (!SettingsValues.Instance.VFX)
+            return;
+
+        Instantiate(_stepParticle, transform.position, Quaternion.identity);
     }
 
     private void OnDrawGizmos()
