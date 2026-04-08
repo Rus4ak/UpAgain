@@ -28,8 +28,8 @@ public class DataLoader : MonoBehaviour
 
     private void AbilitiesLoad()
     {
-        Abilities.values[AbilityType.TurboSpeed] = PlayerPrefs.GetInt("TurboSpeed", 3);
-        Abilities.values[AbilityType.Shield] = PlayerPrefs.GetInt("Shield", 3);
-        Abilities.values[AbilityType.Freeze] = PlayerPrefs.GetInt("Freeze", 3);
+        AbilitiesValues.values[AbilityType.TurboSpeed] = PlayerPrefs.GetInt("TurboSpeed", 3);
+        AbilitiesValues.values[AbilityType.Shield] = PlayerPrefs.GetInt("Shield", 3);
+        AbilitiesValues.values[AbilityType.Freeze] = PlayerPrefs.GetInt("Freeze", 3);
     }
 }

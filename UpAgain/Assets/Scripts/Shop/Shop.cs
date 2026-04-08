@@ -13,13 +13,18 @@ public class Shop : MonoBehaviour
 
     private void Start()
     {
-        int coins = PlayerPrefs.GetInt("Coins", 0);
-        _coinsText.text = coins.ToString();
+        UpdateBalance();
 
         foreach (ProductSO product in _products)
         {
-            GameObject productObj = Instantiate(_productPrefab, _productsMenu);
-            productObj.GetComponent<Product>().Initialize(product.icon, product.title, product.description, product.abilityType);
+            Product productObj = Instantiate(_productPrefab, _productsMenu).GetComponent<Product>();
+            productObj.Initialize(product.icon, product.title, product.description, product.abilityType);
+            productObj.BuyButton.onClick.AddListener(UpdateBalance);
         }
+    }
+
+    private void UpdateBalance()
+    {
+        _coinsText.text = PlayerPrefs.GetInt("Coins", 0).ToString();
     }
 }

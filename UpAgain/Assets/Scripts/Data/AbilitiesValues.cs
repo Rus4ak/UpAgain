@@ -7,7 +7,7 @@ public enum AbilityType
     Freeze
 }
 
-public class Abilities
+public class AbilitiesValues
 {
     public static Dictionary<AbilityType, int> values = new Dictionary<AbilityType, int>()
     {
