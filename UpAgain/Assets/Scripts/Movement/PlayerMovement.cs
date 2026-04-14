@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -15,6 +16,7 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 _lastPosition;
     private float _currentSpeed;
     private PlayerSounds _playerSounds;
+    private float _additionalSpeed;
 
     private bool _isMove = true;
 
@@ -37,7 +39,7 @@ public class PlayerMovement : MonoBehaviour
         if (transform.position.y < 0)
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
 
-        float t = Mathf.InverseLerp(10f, 20f, _rigidbody.linearVelocity.magnitude);
+        float t = Mathf.InverseLerp(5f, 20f, _rigidbody.linearVelocity.magnitude);
 
         _playerSounds.PlayWind(t);
     }
@@ -86,12 +88,17 @@ public class PlayerMovement : MonoBehaviour
             _currentSpeed = 0;
         else if (_currentSpeed < 1)
             _currentSpeed = 1;
-        else if (_currentSpeed > 3)
+        else if (_currentSpeed > 3 && _additionalSpeed == 0)
             _currentSpeed = 3;
 
         Vector3 movement = new Vector3(-_joystick.Horizontal / 2, 0, -_joystick.Vertical);
 
-        _rigidbody.MovePosition(_rigidbody.position + movement * _speed * Time.fixedDeltaTime);
+        Vector3 pos = movement * _speed * Time.fixedDeltaTime;
+
+        if (_additionalSpeed > 0)
+            pos *= _additionalSpeed;
+
+        _rigidbody.MovePosition(_rigidbody.position + pos);
 
         if (movement != Vector3.zero) 
             transform.rotation = Quaternion.LookRotation(movement);
@@ -109,6 +116,27 @@ public class PlayerMovement : MonoBehaviour
             return;
 
         Instantiate(_stepParticle, transform.position, Quaternion.identity);
+    }
+
+    public void SetAdditionalSpeed(float speed)
+    {
+        StartCoroutine(ChangeSpeed(speed, .5f));
+    }
+
+    IEnumerator ChangeSpeed(float speed, float duration)
+    {
+        float startSpeed = _additionalSpeed;
+        float time = 0f;
+
+        while (time < duration)
+        {
+            time += Time.deltaTime;
+            float t = time / duration;
+
+            _additionalSpeed = Mathf.Lerp(startSpeed, speed, t);
+
+            yield return null;
+        }
     }
 
     private void OnDrawGizmos()

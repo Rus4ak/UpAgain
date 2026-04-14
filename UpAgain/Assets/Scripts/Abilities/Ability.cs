@@ -9,22 +9,20 @@ public class Ability : MonoBehaviour
     [SerializeField] private TMP_Text _reloadText;
     [SerializeField] private AbilityType _type;
     [SerializeField] private TMP_Text _countText;
+    [SerializeField] private GameObject _VFX;
+    [SerializeField] private Transform _effectCamera;
 
     private int _count;
     private bool _isReload;
     private Color _defaultCountColor;
     private Image _buttonImage;
     private Image _countBadge;
+    private AudioSource _effectSound;
+    private GameObject _effect;
 
     private void Start()
     {
-        _count = AbilitiesValues.values[_type];
-        _countText.text = _count.ToString();
-        _defaultCountColor = _countText.color;
-        _buttonImage = GetComponent<Image>();
-        _countBadge = GetComponentInChildren<Image>();
-
-        GetComponent<Button>().onClick.AddListener(Use);
+        Initialize();
     }
 
     private void Use()
@@ -36,6 +34,8 @@ public class Ability : MonoBehaviour
 
         StartCoroutine(Reload());
         UseAbility();
+
+        _effectSound.Play();
 
         _count--;
         _countText.text = _count.ToString();
@@ -73,6 +73,28 @@ public class Ability : MonoBehaviour
             _countText.color = _defaultCountColor;
         else
             _countBadge.color = color;
+    }
+
+    protected void EnableEffect()
+    {
+        _effect = Instantiate(_VFX, _effectCamera);
+    }
+
+    protected void DisableEffect()
+    {
+        Destroy(_effect);
+    }
+
+    protected virtual void Initialize()
+    {
+        _count = AbilitiesValues.values[_type];
+        _countText.text = _count.ToString();
+        _defaultCountColor = _countText.color;
+        _buttonImage = GetComponent<Image>();
+        _countBadge = GetComponentInChildren<Image>();
+        _effectSound = GetComponent<AudioSource>();
+
+        GetComponent<Button>().onClick.AddListener(Use);
     }
 
     protected virtual void UseAbility() { }
