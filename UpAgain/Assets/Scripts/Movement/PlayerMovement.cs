@@ -118,9 +118,9 @@ public class PlayerMovement : MonoBehaviour
         Instantiate(_stepParticle, transform.position, Quaternion.identity);
     }
 
-    public void SetAdditionalSpeed(float speed)
+    public void SetAdditionalSpeed(float speed, float smoothDuration)
     {
-        StartCoroutine(ChangeSpeed(speed, .5f));
+        StartCoroutine(ChangeSpeed(speed, smoothDuration));
     }
 
     IEnumerator ChangeSpeed(float speed, float duration)
@@ -128,7 +128,7 @@ public class PlayerMovement : MonoBehaviour
         float startSpeed = _additionalSpeed;
         float time = 0f;
 
-        while (time < duration)
+        while (time <= duration)
         {
             time += Time.deltaTime;
             float t = time / duration;

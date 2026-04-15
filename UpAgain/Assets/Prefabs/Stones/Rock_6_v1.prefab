@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 1897198795320315345}
   - component: {fileID: 7332090852191491312}
   - component: {fileID: 488847805125981302}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Rock_6_v1
   m_TagString: Obstacle
   m_Icon: {fileID: 0}

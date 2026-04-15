@@ -5,6 +5,8 @@ public class TurboSpeed : Ability
 {
     [SerializeField] private float _additionalSpeed;
     [SerializeField] private float _duration;
+    [SerializeField] private GameObject _VFX;
+    [SerializeField] private Transform _effectCamera;
 
     private PlayerMovement _playerMovement;
 
@@ -22,14 +24,14 @@ public class TurboSpeed : Ability
 
     IEnumerator IncreaseSpeed()
     {
-        _playerMovement.SetAdditionalSpeed(_additionalSpeed);
+        _playerMovement.SetAdditionalSpeed(_additionalSpeed, .1f);
 
-        EnableEffect();
+        GameObject effect = Instantiate(_VFX, _effectCamera);
 
         yield return new WaitForSeconds(_duration);
 
-        _playerMovement.SetAdditionalSpeed(0);
+        _playerMovement.SetAdditionalSpeed(0, .5f);
 
-        DisableEffect();
+        Destroy(effect);
     }
 }

@@ -9,8 +9,6 @@ public class Ability : MonoBehaviour
     [SerializeField] private TMP_Text _reloadText;
     [SerializeField] private AbilityType _type;
     [SerializeField] private TMP_Text _countText;
-    [SerializeField] private GameObject _VFX;
-    [SerializeField] private Transform _effectCamera;
 
     private int _count;
     private bool _isReload;
@@ -18,7 +16,6 @@ public class Ability : MonoBehaviour
     private Image _buttonImage;
     private Image _countBadge;
     private AudioSource _effectSound;
-    private GameObject _effect;
 
     private void Start()
     {
@@ -73,16 +70,6 @@ public class Ability : MonoBehaviour
             _countText.color = _defaultCountColor;
         else
             _countBadge.color = color;
-    }
-
-    protected void EnableEffect()
-    {
-        _effect = Instantiate(_VFX, _effectCamera);
-    }
-
-    protected void DisableEffect()
-    {
-        Destroy(_effect);
     }
 
     protected virtual void Initialize()
