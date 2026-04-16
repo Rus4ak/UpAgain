@@ -10,6 +10,8 @@ public class Spawner : MonoBehaviour
     private Bounds _colliderBounds;
     private Transform _player;
 
+    private bool _isSpawn = true;
+
     private void Start()
     {
         _player = GameObject.FindWithTag("Player").transform;
@@ -30,23 +32,45 @@ public class Spawner : MonoBehaviour
         }
 
         StartCoroutine(Spawn());
+
+        Freeze.Instance.FreezeActivate += StopSpawn;
+        Freeze.Instance.FreezeDisactivate += StartSpawn;
     }
 
     private IEnumerator Spawn()
     {
         while (true)
         {
-            if (transform.position.y - 5 > _player.position.y)
+            if (_isSpawn)
             {
-                int obstacleIndex = Random.Range(0, _obstacles.Count);
+                if (transform.position.y - 5 > _player.position.y)
+                {
+                    int obstacleIndex = Random.Range(0, _obstacles.Count);
 
-                float x = Random.Range(_colliderBounds.min.x, _colliderBounds.max.x);
-                Vector3 randomPos = new Vector3(x, transform.position.y, transform.position.z);
+                    float x = Random.Range(_colliderBounds.min.x, _colliderBounds.max.x);
+                    Vector3 randomPos = new Vector3(x, transform.position.y, transform.position.z);
 
-                Instantiate(_obstacles[obstacleIndex], randomPos, Quaternion.identity);
+                    Instantiate(_obstacles[obstacleIndex], randomPos, Quaternion.identity);
+                }
             }
 
             yield return new WaitForSeconds(_spawnSpeed);
         }
+    }
+
+    private void OnDestroy()
+    {
+        Freeze.Instance.FreezeActivate -= StopSpawn;
+        Freeze.Instance.FreezeDisactivate -= StartSpawn;
+    }
+
+    private void StopSpawn()
+    {
+        _isSpawn = false;
+    }
+
+    private void StartSpawn()
+    {
+        _isSpawn = true;
     }
 }

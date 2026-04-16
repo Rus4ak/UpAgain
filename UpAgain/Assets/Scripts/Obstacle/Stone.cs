@@ -13,12 +13,17 @@ public class Stone : MonoBehaviour
     private AudioSource _audioSource;
     private Coroutine _fadeCoroutine;
     private float _baseVolume;
+    private bool _isFreeze;
+    private Vector3 _savedVelocity;
+    private Vector3 _savedAngularVelocity;
+    private MeshRenderer _meshRenderer;
 
     private void Start()
     {
         _speed = Random.Range(_minSpeed, _maxSpeed);
         _rigidbody = GetComponent<Rigidbody>();
         _audioSource = GetComponent<AudioSource>();
+        _meshRenderer = GetComponent<MeshRenderer>();
 
         _audioSource.pitch = Random.Range(.8f, 1.2f);
         _baseVolume = _audioSource.volume;
@@ -26,6 +31,9 @@ public class Stone : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (_isFreeze)
+            return;
+
         Vector3 velocity = _rigidbody.linearVelocity;
         velocity.z = _speed;
 
@@ -57,6 +65,9 @@ public class Stone : MonoBehaviour
 
     private void OnCollisionStay(Collision collision)
     {
+        if (_isFreeze)
+            return;
+
         if (_fadeCoroutine != null)
         {
             StopCoroutine(_fadeCoroutine);
@@ -92,5 +103,44 @@ public class Stone : MonoBehaviour
 
         audioSource.Stop();
         audioSource.volume = startVolume;
+    }
+
+    private void OnEnable()
+    {
+        Freeze.Instance.FreezeActivate += ActivateFreeze;
+        Freeze.Instance.FreezeDisactivate += DisactivateFreeze;
+    }
+
+    private void OnDisable()
+    {
+        Freeze.Instance.FreezeActivate -= ActivateFreeze;
+        Freeze.Instance.FreezeDisactivate -= DisactivateFreeze;
+    }
+
+    private void ActivateFreeze()
+    {
+        _isFreeze = true;
+
+        _meshRenderer.material.color = new Color(0, .8f, 1f);
+
+        _savedVelocity = _rigidbody.linearVelocity;
+        _savedAngularVelocity = _rigidbody.angularVelocity;
+
+        _rigidbody.linearVelocity = Vector3.zero;
+        _rigidbody.angularVelocity = Vector3.zero;
+
+        _rigidbody.isKinematic = true;
+    }
+
+    private void DisactivateFreeze()
+    {
+        _rigidbody.isKinematic = false;
+
+        _rigidbody.linearVelocity = _savedVelocity;
+        _rigidbody.angularVelocity = _savedAngularVelocity;
+
+        _meshRenderer.material.color = Color.white;
+
+        _isFreeze = false;
     }
 }
