@@ -22,9 +22,9 @@ public class Spawner : MonoBehaviour
             if (_spawnSpeed > 2)
                 _spawnSpeed -= .1f;
             else if (_spawnSpeed > 1.5f)
-                _spawnSpeed -= .05f;
+                _spawnSpeed -= .04f;
             else if (_spawnSpeed > 1)
-                _spawnSpeed -= .02f;
+                _spawnSpeed -= .01f;
             else if (_spawnSpeed > .5f)
                 _spawnSpeed -= .005f;
             else
