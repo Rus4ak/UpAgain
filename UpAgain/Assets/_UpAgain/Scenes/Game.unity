@@ -7368,9 +7368,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1775463392}
-        m_TargetAssemblyTypeName: Finish, Assembly-CSharp
-        m_MethodName: LoadScene
+      - m_Target: {fileID: 1775463393}
+        m_TargetAssemblyTypeName: InterstitialAdShow, Assembly-CSharp
+        m_MethodName: Show
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -10758,9 +10758,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1775463392}
-        m_TargetAssemblyTypeName: Finish, Assembly-CSharp
-        m_MethodName: LoadScene
+      - m_Target: {fileID: 1775463393}
+        m_TargetAssemblyTypeName: InterstitialAdShow, Assembly-CSharp
+        m_MethodName: Show
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -16688,6 +16688,7 @@ GameObject:
   - component: {fileID: 1775463391}
   - component: {fileID: 1775463390}
   - component: {fileID: 1775463392}
+  - component: {fileID: 1775463393}
   m_Layer: 6
   m_Name: Finish
   m_TagString: Untagged
@@ -16750,6 +16751,18 @@ MonoBehaviour:
   _activateFinishMenuTime: 3
   _rewardText: {fileID: 1613714164}
   _rewardSound: {fileID: 213197584}
+--- !u!114 &1775463393
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1775463389}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8fb01392877856409124f3a26d50bfc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1800633192
 GameObject:
   m_ObjectHideFlags: 0
