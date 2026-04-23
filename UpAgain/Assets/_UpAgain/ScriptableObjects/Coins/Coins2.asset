@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb9df85862609e04d901ab87887eb613, type: 3}
   m_Name: Coins2
   m_EditorClassIdentifier: 
+  id: coin300
   coinsCount: 300
   price: 1.99

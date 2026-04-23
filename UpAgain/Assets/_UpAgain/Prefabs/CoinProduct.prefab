@@ -247,7 +247,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 2.5}
-  m_SizeDelta: {x: 0, y: -5}
+  m_SizeDelta: {x: -40, y: -25}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &9169296106248949313
 CanvasRenderer:
@@ -277,7 +277,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: $0.99
+  m_text: 0.99 USD
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: c8538099b1b04054fb3cbae87150efbe, type: 2}
   m_sharedMaterial: {fileID: 6248395457938595611, guid: c8538099b1b04054fb3cbae87150efbe, type: 2}
@@ -304,12 +304,12 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 38
+  m_fontSize: 32
   m_fontSizeBase: 38
   m_fontWeight: 400
-  m_enableAutoSizing: 0
+  m_enableAutoSizing: 1
   m_fontSizeMin: 18
-  m_fontSizeMax: 72
+  m_fontSizeMax: 32
   m_fontStyle: 0
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
@@ -647,3 +647,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _coinsCountText: {fileID: 159292634589282685}
   _priceText: {fileID: 7117099650712562}
+  _buyButton: {fileID: 7744166006689138003}

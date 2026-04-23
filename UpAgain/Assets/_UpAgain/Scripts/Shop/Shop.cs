@@ -27,7 +27,7 @@ public class Shop : MonoBehaviour
         LayoutRebuilder.ForceRebuildLayoutImmediate(_content);
     }
 
-    private void UpdateBalance()
+    public void UpdateBalance()
     {
         _coinsText.text = PlayerPrefs.GetInt("Coins", 0).ToString();
     }
@@ -50,10 +50,17 @@ public class Shop : MonoBehaviour
         foreach (CoinsSO coin in _coins)
         {
             Coins coinsObj = Instantiate(_coinsPrefab, _coinsMenu).GetComponent<Coins>();
-            coinsObj.Initialize(coin.coinsCount, coin.price);
+            coinsObj.Initialize(coin.id, coin.coinsCount);
         }
 
         RectTransform coinsMenuRectTransform = _coinsMenu.GetComponent<RectTransform>();
         LayoutRebuilder.ForceRebuildLayoutImmediate(coinsMenuRectTransform);
+    }
+
+    public void BuyCoin(int count)
+    {
+        Bank.Coins += count;
+        PlayerPrefs.SetInt("Coins", Bank.Coins);
+        UpdateBalance();
     }
 }

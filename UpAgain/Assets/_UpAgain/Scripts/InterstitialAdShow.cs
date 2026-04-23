@@ -14,8 +14,8 @@ public class InterstitialAdShow : MonoBehaviour
     {
         _finish = GetComponent<Finish>();
 
-        //if (!IAPManager.Instance.IsRemoveAds)
-        MobileAds.Initialize(_ => { LoadInterstitial(); });
+        if (AdsData.isShow)
+            MobileAds.Initialize(_ => { LoadInterstitial(); });
     }
 
     private void LoadInterstitial()
@@ -39,7 +39,7 @@ public class InterstitialAdShow : MonoBehaviour
     {
         _loadSceneName = loadScene;
 
-        if (_interstitial != null)// && !IAPManager.Instance.IsRemoveAds)
+        if (_interstitial != null && AdsData.isShow)
         {
             AudioListener.pause = true;
             _interstitial.Show();
