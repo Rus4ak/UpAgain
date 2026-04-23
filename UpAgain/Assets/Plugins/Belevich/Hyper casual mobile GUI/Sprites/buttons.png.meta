@@ -573,9 +573,9 @@ TextureImporter:
       name: buttons_23
       rect:
         serializedVersion: 2
-        x: 895
+        x: 894
         y: 1783
-        width: 215
+        width: 216
         height: 214
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
