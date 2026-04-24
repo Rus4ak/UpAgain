@@ -27,6 +27,8 @@ public class Spawner : MonoBehaviour
                 _spawnSpeed -= .01f;
             else if (_spawnSpeed > .5f)
                 _spawnSpeed -= .005f;
+            else if (_spawnSpeed > .3f)
+                _spawnSpeed -= .0005f;
             else
                 break;
         }

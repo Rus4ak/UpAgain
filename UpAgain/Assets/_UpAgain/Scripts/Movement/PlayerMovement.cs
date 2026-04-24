@@ -66,7 +66,8 @@ public class PlayerMovement : MonoBehaviour
             hitDirection.y = 0;
             hitDirection.Normalize();
 
-            _rigidbody.AddForce(hitDirection * 15, ForceMode.Impulse);
+            Vector3 force = hitDirection * collision.gameObject.GetComponent<Rigidbody>().linearVelocity.magnitude;
+            _rigidbody.AddForce(force, ForceMode.Impulse);
 
             _playerSounds.PlayHit();
         }
