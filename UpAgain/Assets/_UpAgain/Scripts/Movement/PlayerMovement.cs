@@ -41,6 +41,18 @@ public class PlayerMovement : MonoBehaviour
 
         float t = Mathf.InverseLerp(5f, 20f, _rigidbody.linearVelocity.magnitude);
 
+        if (_rigidbody.linearVelocity.z > 5 && transform.forward.z < 0)
+        {
+            if (!_animator.GetBool("IsSliding"))
+            {
+                _animator.SetBool("IsSliding", true);
+            }
+        }
+        else if (_animator.GetBool("IsSliding"))
+        {
+            _animator.SetBool("IsSliding", false);
+        }
+
         _playerSounds.PlayWind(t);
     }
 
