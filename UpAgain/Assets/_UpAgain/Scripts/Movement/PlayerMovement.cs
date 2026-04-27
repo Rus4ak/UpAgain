@@ -8,7 +8,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private FloatingJoystick _joystick;
     [SerializeField] private float _groundCheckRadius;
     [SerializeField] private LayerMask _groundCheckLayer;
-    [SerializeField] private GameObject _stepParticle;
+    [SerializeField] private ObjectPool _smokePool;
 
     private Animator _animator;
     private Rigidbody _rigidbody;
@@ -105,11 +105,14 @@ public class PlayerMovement : MonoBehaviour
             _currentSpeed = 3;
 
         Vector3 movement = new Vector3(-_joystick.Horizontal / 2, 0, -_joystick.Vertical);
-
+        
         Vector3 pos = movement * _speed * Time.fixedDeltaTime;
 
         if (_additionalSpeed > 0)
             pos *= _additionalSpeed;
+        
+        if (pos.magnitude < .01f)
+            return;
 
         _rigidbody.MovePosition(_rigidbody.position + pos);
 
@@ -128,7 +131,9 @@ public class PlayerMovement : MonoBehaviour
         if (!SettingsValues.Instance.VFX)
             return;
 
-        Instantiate(_stepParticle, transform.position, Quaternion.identity);
+        GameObject obj = _smokePool.GetObject();
+        obj.transform.position = transform.position;
+        obj.GetComponent<PooledParticle>().Init(_smokePool);
     }
 
     public void SetAdditionalSpeed(float speed, float smoothDuration)

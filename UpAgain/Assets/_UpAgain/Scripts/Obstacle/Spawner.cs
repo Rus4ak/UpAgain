@@ -5,6 +5,8 @@ using UnityEngine;
 public class Spawner : MonoBehaviour
 {
     [SerializeField] private List<GameObject> _obstacles;
+    [SerializeField] private ObjectPool _obstaclePool;
+    [SerializeField] private ObjectPool _obstacleSmokePool;
 
     private float _spawnSpeed = 3f;
     private Bounds _colliderBounds;
@@ -52,7 +54,12 @@ public class Spawner : MonoBehaviour
                     float x = Random.Range(_colliderBounds.min.x, _colliderBounds.max.x);
                     Vector3 randomPos = new Vector3(x, transform.position.y, transform.position.z);
 
-                    Instantiate(_obstacles[obstacleIndex], randomPos, Quaternion.identity);
+                    GameObject obj = _obstaclePool.GetObject();
+                    obj.transform.position = randomPos;
+
+                    Stone stone = obj.GetComponent<Stone>();
+                    stone.obstaclePool = _obstaclePool;
+                    stone.obstacleSmokePool = _obstacleSmokePool;
                 }
             }
 

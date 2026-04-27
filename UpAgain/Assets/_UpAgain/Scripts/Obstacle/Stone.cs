@@ -6,7 +6,6 @@ public class Stone : MonoBehaviour
 {
     [SerializeField] private float _minSpeed = 10f;
     [SerializeField] private float _maxSpeed = 25f;
-    [SerializeField] private GameObject _hitParticles;
 
     private float _speed;
     private Rigidbody _rigidbody;
@@ -17,6 +16,9 @@ public class Stone : MonoBehaviour
     private Vector3 _savedVelocity;
     private Vector3 _savedAngularVelocity;
     private MeshRenderer _meshRenderer;
+
+    [HideInInspector] public ObjectPool obstaclePool;
+    [HideInInspector] public ObjectPool obstacleSmokePool;
 
     private void Start()
     {
@@ -43,7 +45,7 @@ public class Stone : MonoBehaviour
     private void Update()
     {
         if (transform.position.y < 0)
-            Destroy(gameObject);
+            obstaclePool.ReturnObject(gameObject);
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -59,10 +61,12 @@ public class Stone : MonoBehaviour
             Vector3 hitPoint = contact.point;
             Vector3 hitNormal = contact.normal;
 
-            Instantiate(_hitParticles, hitPoint, Quaternion.LookRotation(hitNormal));
+            Transform obj = obstacleSmokePool.GetObject().transform;
+            obj.position = hitPoint;
+            obj.rotation = Quaternion.LookRotation(hitNormal);
+            obj.GetComponent<PooledParticle>().Init(obstacleSmokePool);
         }
     }
-
     private void OnCollisionStay(Collision collision)
     {
         if (_isFreeze)
