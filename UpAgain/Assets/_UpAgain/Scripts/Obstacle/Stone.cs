@@ -53,19 +53,17 @@ public class Stone : MonoBehaviour
         if (!SettingsValues.Instance.VFX)
             return;
 
-        if (collision.gameObject.CompareTag("Player"))
+        if (collision.gameObject.CompareTag("Player") ||
+            collision.gameObject.layer == LayerMask.NameToLayer("Border"))
             return;
 
-        foreach (ContactPoint contact in collision.contacts)
-        {
-            Vector3 hitPoint = contact.point;
-            Vector3 hitNormal = contact.normal;
+        ContactPoint contact = collision.contacts[0];
+        Vector3 hitPoint = contact.point;
+        Vector3 hitNormal = contact.normal;
 
-            Transform obj = obstacleSmokePool.GetObject().transform;
-            obj.position = hitPoint;
-            obj.rotation = Quaternion.LookRotation(hitNormal);
-            obj.GetComponent<PooledParticle>().Init(obstacleSmokePool);
-        }
+        Transform obj = obstacleSmokePool.GetObject().transform;
+        obj.position = hitPoint;
+        obj.rotation = Quaternion.LookRotation(hitNormal);
     }
     private void OnCollisionStay(Collision collision)
     {

@@ -8,7 +8,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private FloatingJoystick _joystick;
     [SerializeField] private float _groundCheckRadius;
     [SerializeField] private LayerMask _groundCheckLayer;
-    [SerializeField] private ObjectPool _smokePool;
+    [SerializeField] private ParticleSystem _smokeParticle;
 
     private Animator _animator;
     private Rigidbody _rigidbody;
@@ -68,6 +68,11 @@ public class PlayerMovement : MonoBehaviour
 
         else if (_currentSpeed > 0)
             _currentSpeed = 0;
+
+        if (_currentSpeed >= 1.5f && !_smokeParticle.isPlaying)
+            _smokeParticle.Play();
+        else if (_currentSpeed < 1.5f && _smokeParticle.isPlaying)
+            _smokeParticle.Stop();
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -124,16 +129,6 @@ public class PlayerMovement : MonoBehaviour
     {
         _isMove = isMove;
         _joystick.gameObject.SetActive(isMove);
-    }
-
-    public void Step()
-    {
-        if (!SettingsValues.Instance.VFX)
-            return;
-
-        GameObject obj = _smokePool.GetObject();
-        obj.transform.position = transform.position;
-        obj.GetComponent<PooledParticle>().Init(_smokePool);
     }
 
     public void SetAdditionalSpeed(float speed, float smoothDuration)

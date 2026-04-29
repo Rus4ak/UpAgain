@@ -4,35 +4,65 @@ using UnityEngine;
 public class ObjectPool : MonoBehaviour
 {
     [SerializeField] private GameObject[] _prefabs;
-    [SerializeField] private float _defaultCount = 10;
+    [SerializeField] private float _prewarmCount = 10;
+    [SerializeField] private int _maxActiveObjects = 30;
 
     private Queue<GameObject> pool = new Queue<GameObject>();
+    private Queue<GameObject> activeObjects = new Queue<GameObject>();
 
     private void Start()
     {
-        for (int i = 0; i < _defaultCount;  i++)
+        for (int i = 0; i < _prewarmCount;  i++)
         {
-            GameObject obj = Instantiate(_prefabs[Random.Range(0, _prefabs.Length)]);
-            obj.SetActive(false);
+            GameObject obj = CreateNew();
+            obj.SetActive(false); 
             pool.Enqueue(obj);
         }
     }
 
+    private GameObject CreateNew()
+    {
+        return Instantiate(_prefabs[Random.Range(0, _prefabs.Length)]);
+    }
+
     public GameObject GetObject()
     {
-        if (pool.Count > 0)
+        GameObject obj;
+
+        if (activeObjects.Count >= _maxActiveObjects)
         {
-            GameObject obj = pool.Dequeue();
-            obj.SetActive(true);
-            return obj;
+            obj = activeObjects.Dequeue();
+            obj.SetActive(false);
+        }
+        else if (pool.Count > 0)
+        {
+            obj = pool.Dequeue();
+        }
+        else
+        {
+            obj = CreateNew();
         }
 
-        return Instantiate(_prefabs[Random.Range(0, _prefabs.Length)]);
+        obj.SetActive(true);
+        activeObjects.Enqueue(obj);
+
+        return obj;
     }
 
     public void ReturnObject(GameObject obj)
     {
         obj.SetActive(false);
+
+        Queue<GameObject> newQueue = new Queue<GameObject>();
+
+        foreach (var item in activeObjects)
+        {
+            if (item != obj)
+                newQueue.Enqueue(item);
+        }
+
+        activeObjects = newQueue;
+
         pool.Enqueue(obj);
     }
 }
