@@ -10,12 +10,12 @@ public class ObjectPool : MonoBehaviour
     private Queue<GameObject> pool = new Queue<GameObject>();
     private Queue<GameObject> activeObjects = new Queue<GameObject>();
 
-    private void Start()
+    public void Initialize()
     {
-        for (int i = 0; i < _prewarmCount;  i++)
+        for (int i = 0; i < _prewarmCount; i++)
         {
             GameObject obj = CreateNew();
-            obj.SetActive(false); 
+            obj.SetActive(false);
             pool.Enqueue(obj);
         }
     }
