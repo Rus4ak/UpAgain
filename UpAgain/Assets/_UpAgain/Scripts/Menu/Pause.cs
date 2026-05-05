@@ -21,7 +21,8 @@ public class Pause : MonoBehaviour
     public void LoadMainMenu()
     {
         SetTimeScale(1);
-        SceneManager.LoadScene("MainMenu");
+        LoadingScreen.Instance.Activate(true);
+        SceneManager.LoadSceneAsync("MainMenu");
         Destroy(Music.Instance.gameObject);
     }
 }

@@ -11,7 +11,7 @@ public class DataLoader : MonoBehaviour
         SettingsLoad();
         AbilitiesLoad();
 
-        SceneManager.LoadScene(_menuScene);
+        SceneManager.LoadSceneAsync(_menuScene);
     }
 
     private void BankLoad()

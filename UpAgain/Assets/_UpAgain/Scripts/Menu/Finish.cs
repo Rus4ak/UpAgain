@@ -56,7 +56,8 @@ public class Finish : MonoBehaviour
 
     public void LoadScene(string name)
     {
-        SceneManager.LoadScene(name);
+        LoadingScreen.Instance.Activate(true);
+        SceneManager.LoadSceneAsync(name);
         Destroy(Music.Instance.gameObject);
     }
 }
