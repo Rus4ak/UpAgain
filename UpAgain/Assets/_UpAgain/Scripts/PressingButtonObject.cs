@@ -9,6 +9,7 @@ public class PressingButtonObject : MonoBehaviour
     private Graphic _graphic;
     private Color _startedColor;
     private Selectable _selectable;
+    private Coroutine _currentCoroutine;
 
     private void Awake()
     {
@@ -20,6 +21,11 @@ public class PressingButtonObject : MonoBehaviour
 
     private void OnEnable()
     {
+        if (_currentCoroutine != null)
+        {
+            PointerUp();
+        }
+
         _buttonController.OnClickDown += PointerDown;
         _buttonController.OnClickUp += PointerUp;
     }
@@ -32,14 +38,30 @@ public class PressingButtonObject : MonoBehaviour
 
     private void PointerDown()
     {
-        Color pressedColor = Color.white - _selectable.colors.pressedColor;
+        if (!_selectable.interactable)
+            return;
 
-        StartCoroutine(Fade(_startedColor - pressedColor));
+        Color pressedColor = Color.white - _selectable.colors.pressedColor;
+        
+        StartFade(_startedColor - pressedColor);
     }
 
     private void PointerUp()
     {
-        StartCoroutine(Fade(_startedColor));
+        if (!_selectable.interactable)
+            return;
+        
+        StartFade(_startedColor);
+    }
+
+    private void StartFade(Color color)
+    {
+        if (_currentCoroutine != null)
+        {
+            StopCoroutine(_currentCoroutine);
+        }
+
+        _currentCoroutine = StartCoroutine(Fade(color));
     }
 
     private IEnumerator Fade(Color newColor)
@@ -47,7 +69,7 @@ public class PressingButtonObject : MonoBehaviour
         Color startColor = _graphic.color;
         float time = 0f;
         float duration = _selectable.colors.fadeDuration;
-
+        
         while (time < duration)
         {
             time += Time.deltaTime;
