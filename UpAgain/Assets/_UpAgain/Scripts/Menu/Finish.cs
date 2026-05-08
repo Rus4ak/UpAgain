@@ -1,6 +1,7 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class Finish : MonoBehaviour
 {
@@ -8,6 +9,7 @@ public class Finish : MonoBehaviour
     [SerializeField] private Transform _chest;
     [SerializeField] private Vector3 _cameraOffset;
     [SerializeField] private float _activateFinishMenuTime;
+    [SerializeField] private RectTransform _rewardLayout;
     [SerializeField] private TMP_Text _rewardText;
     [SerializeField] private AudioSource _rewardSound;
 
@@ -45,13 +47,14 @@ public class Finish : MonoBehaviour
         int rewardCoins = Random.Range(_currentLevel, _currentLevel + 50);
         
         _rewardText.text = $"+{rewardCoins}";
-        Canvas.ForceUpdateCanvases();
         
         Bank.Coins += rewardCoins;
         PlayerPrefs.SetInt("Coins", Bank.Coins);
 
         _finishMenu.SetActive(true);
         _rewardSound.Play();
+
+        LayoutRebuilder.ForceRebuildLayoutImmediate(_rewardLayout);
     }
 
     public void LoadScene(string name)

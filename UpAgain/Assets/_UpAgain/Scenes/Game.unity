@@ -21802,6 +21802,7 @@ MonoBehaviour:
   _chest: {fileID: 1914010092}
   _cameraOffset: {x: 3, y: 2, z: 3}
   _activateFinishMenuTime: 3
+  _rewardLayout: {fileID: 454959196}
   _rewardText: {fileID: 1613714164}
   _rewardSound: {fileID: 213197584}
 --- !u!114 &1775463393
