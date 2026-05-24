@@ -10,6 +10,7 @@ public class DataLoader : MonoBehaviour
         BankLoad();
         SettingsLoad();
         AbilitiesLoad();
+        MapLoad();
 
         SceneManager.LoadSceneAsync(_menuScene);
     }
@@ -31,5 +32,10 @@ public class DataLoader : MonoBehaviour
         AbilitiesValues.values[AbilityType.TurboSpeed] = PlayerPrefs.GetInt("TurboSpeed", 3);
         AbilitiesValues.values[AbilityType.Shield] = PlayerPrefs.GetInt("Shield", 3);
         AbilitiesValues.values[AbilityType.Freeze] = PlayerPrefs.GetInt("Freeze", 3);
+    }
+
+    private void MapLoad()
+    {
+        Map.CurrentMap = PlayerPrefs.GetInt("CurrentMap", 0);
     }
 }

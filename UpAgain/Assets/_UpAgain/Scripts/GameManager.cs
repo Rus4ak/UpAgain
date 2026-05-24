@@ -3,7 +3,7 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     [SerializeField] private ObjectPool _obstaclePool;
-    [SerializeField] private ObjectPool _obstacleSmokePool;
+    [SerializeField] private ObjectPoolParticle _obstacleSmokePool;
     
     private int _currentLevel;
 

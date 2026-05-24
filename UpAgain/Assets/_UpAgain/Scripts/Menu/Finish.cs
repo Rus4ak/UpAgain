@@ -16,6 +16,7 @@ public class Finish : MonoBehaviour
     private Animator _chestAnimator;
     private CameraMovement _mainCamera;
     private int _currentLevel;
+    private string _loadScene;
 
     private void Start()
     {
@@ -57,10 +58,24 @@ public class Finish : MonoBehaviour
         LayoutRebuilder.ForceRebuildLayoutImmediate(_rewardLayout);
     }
 
-    public void LoadScene(string name)
+    public void ShowAd(string loadSceneName)
+    {
+        _loadScene = loadSceneName;
+
+        InterstitialAdShow.Instance.ProcessAd += LoadScene;
+
+        InterstitialAdShow.Instance.Show();
+    }
+
+    private void OnDisable()
+    {
+        InterstitialAdShow.Instance.ProcessAd -= LoadScene;
+    }
+
+    private void LoadScene()
     {
         LoadingScreen.Instance.Activate(true);
-        SceneManager.LoadSceneAsync(name);
+        SceneManager.LoadSceneAsync(_loadScene);
         Destroy(Music.Instance.gameObject);
     }
 }

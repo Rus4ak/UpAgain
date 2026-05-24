@@ -18,7 +18,7 @@ public class Stone : MonoBehaviour
     private MeshRenderer _meshRenderer;
 
     [HideInInspector] public ObjectPool obstaclePool;
-    [HideInInspector] public ObjectPool obstacleSmokePool;
+    [HideInInspector] public ObjectPoolParticle obstacleSmokePool;
 
     private void Start()
     {

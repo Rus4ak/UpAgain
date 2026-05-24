@@ -264,12 +264,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71de377bf76d14941999740749a2339a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _obstacles:
-  - {fileID: 6147454226367591256, guid: 7b5436ed798390d4fa236c88b0b059de, type: 3}
-  - {fileID: 6784126531596570987, guid: 777668fa2345c42478e26234b48ff804, type: 3}
-  - {fileID: 4053723023453840024, guid: 7c5dea3291f986040957a99db167970f, type: 3}
   _obstaclePool: {fileID: 928011846}
-  _obstacleSmokePool: {fileID: 969859322}
+  _obstacleSmokePool: {fileID: 969859324}
 --- !u!1 &62237422
 GameObject:
   m_ObjectHideFlags: 0
@@ -12234,9 +12230,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1775463393}
-        m_TargetAssemblyTypeName: InterstitialAdShow, Assembly-CSharp
-        m_MethodName: Show
+      - m_Target: {fileID: 1775463392}
+        m_TargetAssemblyTypeName: Finish, Assembly-CSharp
+        m_MethodName: ShowAd
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -13132,12 +13128,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71de377bf76d14941999740749a2339a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _obstacles:
-  - {fileID: 6147454226367591256, guid: 7b5436ed798390d4fa236c88b0b059de, type: 3}
-  - {fileID: 6784126531596570987, guid: 777668fa2345c42478e26234b48ff804, type: 3}
-  - {fileID: 4053723023453840024, guid: 7c5dea3291f986040957a99db167970f, type: 3}
   _obstaclePool: {fileID: 928011846}
-  _obstacleSmokePool: {fileID: 969859322}
+  _obstacleSmokePool: {fileID: 969859324}
 --- !u!65 &670637878
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -13605,7 +13597,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _obstaclePool: {fileID: 928011846}
-  _obstacleSmokePool: {fileID: 969859322}
+  _obstacleSmokePool: {fileID: 969859324}
   playerMovement: {fileID: 1761830401}
 --- !u!4 &854342426
 Transform:
@@ -13946,11 +13938,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6524ea2eaa189d74e8751f9ca012b11f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _prefabs:
-  - {fileID: 6147454226367591256, guid: 7b5436ed798390d4fa236c88b0b059de, type: 3}
-  - {fileID: 6784126531596570987, guid: 777668fa2345c42478e26234b48ff804, type: 3}
-  - {fileID: 4053723023453840024, guid: 7c5dea3291f986040957a99db167970f, type: 3}
-  _prewarmCount: 10
+  _prefabsData:
+  - obstacles:
+    - {fileID: 6147454226367591256, guid: 7b5436ed798390d4fa236c88b0b059de, type: 3}
+    - {fileID: 6784126531596570987, guid: 777668fa2345c42478e26234b48ff804, type: 3}
+    - {fileID: 4053723023453840024, guid: 7c5dea3291f986040957a99db167970f, type: 3}
+  - obstacles:
+    - {fileID: 7737834030354291156, guid: 3a76ee605caa64144a28608967f67c9e, type: 3}
+    - {fileID: 8115922153138487333, guid: 3aa7c98bee9d29140a2317a6c2de9f2e, type: 3}
+    - {fileID: 5098077206408975768, guid: f6878f6c544a8b148a02efe47b9ab44f, type: 3}
+    - {fileID: 7494040693533262390, guid: f5dd2294841a5fe48b091354c754321b, type: 3}
+    - {fileID: 1803751890695150901, guid: e602289bddc0b57428e608ac23d19294, type: 3}
+    - {fileID: 2132821848760258309, guid: 725a0bf86e77ee745954b3434b02082e, type: 3}
+  _prewarmCount: 20
   _maxActiveObjects: 100
 --- !u!4 &928011847
 Transform:
@@ -14174,7 +14174,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 969859323}
-  - component: {fileID: 969859322}
+  - component: {fileID: 969859324}
   m_Layer: 0
   m_Name: ObstacleSmokePool
   m_TagString: Untagged
@@ -14182,22 +14182,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &969859322
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 969859321}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6524ea2eaa189d74e8751f9ca012b11f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _prefabs:
-  - {fileID: 7948516606963018104, guid: aaff9bb5ddae38e479d257ebd2a19f8b, type: 3}
-  _prewarmCount: 10
-  _maxActiveObjects: 30
 --- !u!4 &969859323
 Transform:
   m_ObjectHideFlags: 0
@@ -14213,6 +14197,22 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &969859324
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 969859321}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0974247b047e03149af353d0fe926302, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _prefabs:
+  - {fileID: 7948516606963018104, guid: aaff9bb5ddae38e479d257ebd2a19f8b, type: 3}
+  _prewarmCount: 20
+  _maxActiveObjects: 30
 --- !u!1 &1011237375
 GameObject:
   m_ObjectHideFlags: 0
@@ -15798,9 +15798,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1775463393}
-        m_TargetAssemblyTypeName: InterstitialAdShow, Assembly-CSharp
-        m_MethodName: Show
+      - m_Target: {fileID: 1775463392}
+        m_TargetAssemblyTypeName: Finish, Assembly-CSharp
+        m_MethodName: ShowAd
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -21741,7 +21741,6 @@ GameObject:
   - component: {fileID: 1775463391}
   - component: {fileID: 1775463390}
   - component: {fileID: 1775463392}
-  - component: {fileID: 1775463393}
   m_Layer: 6
   m_Name: Finish
   m_TagString: Untagged
@@ -21805,18 +21804,6 @@ MonoBehaviour:
   _rewardLayout: {fileID: 454959196}
   _rewardText: {fileID: 1613714164}
   _rewardSound: {fileID: 213197584}
---- !u!114 &1775463393
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1775463389}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b8fb01392877856409124f3a26d50bfc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1800633192
 GameObject:
   m_ObjectHideFlags: 0
@@ -24082,12 +24069,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71de377bf76d14941999740749a2339a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _obstacles:
-  - {fileID: 6147454226367591256, guid: 7b5436ed798390d4fa236c88b0b059de, type: 3}
-  - {fileID: 6784126531596570987, guid: 777668fa2345c42478e26234b48ff804, type: 3}
-  - {fileID: 4053723023453840024, guid: 7c5dea3291f986040957a99db167970f, type: 3}
   _obstaclePool: {fileID: 928011846}
-  _obstacleSmokePool: {fileID: 969859322}
+  _obstacleSmokePool: {fileID: 969859324}
 --- !u!65 &2083617582
 BoxCollider:
   m_ObjectHideFlags: 0

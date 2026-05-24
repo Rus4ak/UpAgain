@@ -1,19 +1,35 @@
 using GoogleMobileAds.Api;
+using System;
 using UnityEngine;
 
 public class InterstitialAdShow : MonoBehaviour
 {
     private InterstitialAd _interstitial;
-    //private const string adUnitId = "ca-app-pub-1047420423867770/7966008160";
-    private const string adUnitId = "ca-app-pub-3940256099942544/1033173712"; //testID
+    private const string adUnitId = "ca-app-pub-1047420423867770/7966008160";
+    //private const string adUnitId = "ca-app-pub-3940256099942544/1033173712"; //testID
 
-    private Finish _finish;
-    private string _loadSceneName;
+    public event Action ProcessAd;
+
+    public static InterstitialAdShow Instance { get; private set; }
+
+    private void Awake()
+    {
+        if (Instance != null && Instance != this)
+            Destroy(gameObject);
+        else
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+    }
 
     private void Start()
     {
-        _finish = GetComponent<Finish>();
+        Initialize();
+    }
 
+    private void Initialize()
+    {
         if (AdsData.isShow)
             MobileAds.Initialize(_ => { LoadInterstitial(); });
     }
@@ -32,13 +48,12 @@ public class InterstitialAdShow : MonoBehaviour
             _interstitial = ad;
 
             _interstitial.OnAdFullScreenContentClosed += HandleAdClosed;
+            _interstitial.OnAdFullScreenContentFailed += HandleAdFailed;
         });
     }
 
-    public void Show(string loadScene)
+    public void Show()
     {
-        _loadSceneName = loadScene;
-
         if (_interstitial != null && AdsData.isShow)
         {
             AudioListener.pause = true;
@@ -54,11 +69,21 @@ public class InterstitialAdShow : MonoBehaviour
     {
         AudioListener.pause = false;
 
-        _interstitial?.Destroy();
-        _interstitial = null;
+        if (_interstitial != null)
+        {
+            _interstitial.OnAdFullScreenContentClosed -= HandleAdClosed;
+            _interstitial.Destroy();
+            _interstitial = null;
+        }
 
-        _finish.LoadScene(_loadSceneName);
+        ProcessAd?.Invoke();
 
-        LoadInterstitial();
+        if (AdsData.isShow)
+            LoadInterstitial();
+    }
+
+    private void HandleAdFailed(AdError error)
+    {
+        HandleAdClosed();
     }
 }

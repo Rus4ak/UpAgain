@@ -1,14 +1,28 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
+
+[Serializable]
+public class ObstacleData
+{
+    public GameObject[] obstacles;
+}
 
 public class ObjectPool : MonoBehaviour
 {
-    [SerializeField] private GameObject[] _prefabs;
+    [SerializeField] private ObstacleData[] _prefabsData;
     [SerializeField] private float _prewarmCount = 10;
     [SerializeField] private int _maxActiveObjects = 30;
 
     private Queue<GameObject> pool = new Queue<GameObject>();
     private Queue<GameObject> activeObjects = new Queue<GameObject>();
+    private GameObject[] _prefabs;
+
+    private void Awake()
+    {
+        _prefabs = _prefabsData[PlayerPrefs.GetInt("CurrentMap", 0)].obstacles;
+    }
 
     public void Initialize()
     {

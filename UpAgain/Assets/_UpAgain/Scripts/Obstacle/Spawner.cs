@@ -1,12 +1,12 @@
+using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class Spawner : MonoBehaviour
 {
-    [SerializeField] private List<GameObject> _obstacles;
     [SerializeField] private ObjectPool _obstaclePool;
-    [SerializeField] private ObjectPool _obstacleSmokePool;
+    [SerializeField] private ObjectPoolParticle _obstacleSmokePool;
 
     private float _spawnSpeed = 3f;
     private Bounds _colliderBounds;
@@ -49,8 +49,6 @@ public class Spawner : MonoBehaviour
             {
                 if (transform.position.y - 5 > _player.position.y)
                 {
-                    int obstacleIndex = Random.Range(0, _obstacles.Count);
-
                     float x = Random.Range(_colliderBounds.min.x, _colliderBounds.max.x);
                     Vector3 randomPos = new Vector3(x, transform.position.y, transform.position.z);
 
