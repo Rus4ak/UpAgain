@@ -31,7 +31,12 @@ public class Finish : MonoBehaviour
         {
             GameManager.Instance.playerMovement.SetMove(false);
 
-            PlayerPrefs.SetInt("LastCompletedLevel", _currentLevel);
+            LevelsData.completedLevelsMap[Map.CurrentMap] = _currentLevel;
+
+            if (Map.CurrentMap == 0)
+                PlayerPrefs.SetInt("LastCompletedLevel", _currentLevel);
+            else if (Map.CurrentMap == 1)
+                PlayerPrefs.SetInt("LastCompletedLevelMap2", _currentLevel);
 
             Vector3 cameraLookAt = _chest.position;
             cameraLookAt.y += 1;

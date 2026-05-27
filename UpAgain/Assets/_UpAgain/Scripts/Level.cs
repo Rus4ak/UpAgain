@@ -8,11 +8,14 @@ public class Level : MonoBehaviour
     [SerializeField] private int _countToOpen;
     [SerializeField] private Button _button;
     [SerializeField] private TMP_Text _text;
+    [SerializeField] private TMP_Text _level;
 
     private int _completedLevels;
 
     private void Start()
     {
+        _level.text = $"{LevelsData.completedLevelsMap[_id] + 1} LEVEL";
+
         Initialize();
     }
 
@@ -34,7 +37,7 @@ public class Level : MonoBehaviour
         }
         else
         {
-            _completedLevels = PlayerPrefs.GetInt("LastCompletedLevel", 0) + 1;
+            _completedLevels = LevelsData.completedAllLevels;
 
             if (_completedLevels < _countToOpen)
             {

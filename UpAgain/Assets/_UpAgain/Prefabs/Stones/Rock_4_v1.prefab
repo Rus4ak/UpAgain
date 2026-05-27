@@ -132,7 +132,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _minSpeed: 10
   _maxSpeed: 25
-  _hitParticles: {fileID: 7948516606963018104, guid: aaff9bb5ddae38e479d257ebd2a19f8b, type: 3}
+  _gravityMultiplier: 1
+  _hitSound: {fileID: 0}
+  obstaclePool: {fileID: 0}
+  obstacleSmokePool: {fileID: 0}
 --- !u!135 &6950492572056302715
 SphereCollider:
   m_ObjectHideFlags: 0

@@ -54,6 +54,7 @@ public class Spawner : MonoBehaviour
 
                     GameObject obj = _obstaclePool.GetObject();
                     obj.transform.position = randomPos;
+                    obj.transform.rotation = Random.rotation;
 
                     Stone stone = obj.GetComponent<Stone>();
                     stone.obstaclePool = _obstaclePool;

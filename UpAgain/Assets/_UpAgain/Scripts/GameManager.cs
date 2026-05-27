@@ -19,7 +19,7 @@ public class GameManager : MonoBehaviour
 
         Instance = this;
 
-        _currentLevel = PlayerPrefs.GetInt("LastCompletedLevel", 0) + 1;
+        _currentLevel = LevelsData.completedLevelsMap[Map.CurrentMap] + 1;
     }
 
     private void Start()

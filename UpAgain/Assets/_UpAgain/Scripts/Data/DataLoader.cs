@@ -11,6 +11,7 @@ public class DataLoader : MonoBehaviour
         SettingsLoad();
         AbilitiesLoad();
         MapLoad();
+        LevelsLoad();
 
         SceneManager.LoadSceneAsync(_menuScene);
     }
@@ -37,5 +38,11 @@ public class DataLoader : MonoBehaviour
     private void MapLoad()
     {
         Map.CurrentMap = PlayerPrefs.GetInt("CurrentMap", 0);
+    }
+
+    private void LevelsLoad()
+    {
+        LevelsData.completedLevelsMap[0] = PlayerPrefs.GetInt("LastCompletedLevel", 0);
+        LevelsData.completedLevelsMap[1] = PlayerPrefs.GetInt("LastCompletedLevelMap2", 0);
     }
 }

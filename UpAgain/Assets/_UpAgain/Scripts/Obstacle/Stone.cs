@@ -6,6 +6,8 @@ public class Stone : MonoBehaviour
 {
     [SerializeField] private float _minSpeed = 10f;
     [SerializeField] private float _maxSpeed = 25f;
+    [SerializeField] private float _gravityMultiplier = 1;
+    [SerializeField] private AudioSource _hitSound;
 
     private float _speed;
     private Rigidbody _rigidbody;
@@ -16,6 +18,7 @@ public class Stone : MonoBehaviour
     private Vector3 _savedVelocity;
     private Vector3 _savedAngularVelocity;
     private MeshRenderer _meshRenderer;
+    private float _hitSoundPitch;
 
     [HideInInspector] public ObjectPool obstaclePool;
     [HideInInspector] public ObjectPoolParticle obstacleSmokePool;
@@ -27,8 +30,11 @@ public class Stone : MonoBehaviour
         _audioSource = GetComponent<AudioSource>();
         _meshRenderer = GetComponent<MeshRenderer>();
 
-        _audioSource.pitch = Random.Range(.8f, 1.2f);
+        _audioSource.pitch = Random.Range(_audioSource.pitch - .2f, _audioSource.pitch + .2f);
         _baseVolume = _audioSource.volume;
+
+        if (_hitSound != null)
+            _hitSoundPitch = _hitSound.pitch;
     }
 
     private void FixedUpdate()
@@ -40,6 +46,11 @@ public class Stone : MonoBehaviour
         velocity.z = _speed;
 
         _rigidbody.linearVelocity = velocity;
+
+        _rigidbody.AddForce(
+            Physics.gravity * (_gravityMultiplier - 1),
+            ForceMode.Acceleration
+        );
     }
 
     private void Update()
@@ -50,6 +61,17 @@ public class Stone : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+        
+        if (_hitSound != null && collision.relativeVelocity.magnitude > 15)
+        {
+            if (collision.gameObject.CompareTag("Obstacle") ||
+                collision.gameObject.layer == LayerMask.NameToLayer("Ground"))
+            {
+                _hitSound.pitch = Random.Range(_hitSoundPitch - .2f, _hitSoundPitch + .2f);
+                _hitSound.Play();
+            }
+        }
+
         if (!SettingsValues.Instance.VFX)
             return;
 
